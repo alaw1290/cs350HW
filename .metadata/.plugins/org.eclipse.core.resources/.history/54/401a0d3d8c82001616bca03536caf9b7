@@ -1,0 +1,20 @@
+package hw2;
+
+public class problem4 {
+	
+	public static double expdist(int lambda){
+		// Input lambda (interarrival time) to return exp distributed values
+		double result = -1*Math.log(1-Math.random() / lambda);
+		return result;
+	}
+	
+	public static void main(String[] args) {
+		double mean = 0;
+		for(int i = 0; i < 100; i++){
+			double test = expdist(3);
+			System.out.println(test);
+			mean = mean + test;
+		};
+		System.out.println(mean / 100);
+	}
+}

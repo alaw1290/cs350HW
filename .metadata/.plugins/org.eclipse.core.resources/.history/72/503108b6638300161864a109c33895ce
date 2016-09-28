@@ -1,0 +1,26 @@
+package hw2;
+import java.util.Arrays;
+
+public class problem5 {
+	
+	public static double Zrand(double mean, double stdev, int n){
+		mean = mean / 30;
+		double var = (stdev * stdev) / 30;
+		double bound = var * 12;
+		bound = Math.pow(bound, 0.5);
+		double lowerBound = mean - (bound / 2);
+		double upperBound = mean + (bound / 2);
+		double[] uniformList = new double[n];
+		for(int i = 0; i < n; i++){
+			sample[i] = lowerBound + (Math.random() * upperBound);
+		}
+		
+		return Math.random();
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
