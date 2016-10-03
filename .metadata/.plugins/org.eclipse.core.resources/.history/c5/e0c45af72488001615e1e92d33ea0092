@@ -1,0 +1,28 @@
+package hw3;
+
+import java.util.*;
+
+
+public class Scheduler {
+	private Event birthEvent;
+	private Event deathEvent;
+	private Event logEvent;
+	private MM1Event calendar;
+	private double simulationLength;
+	private LinkedList<Event> Events;
+	
+	public Scheduler(double lamb, double sr, double lr, double simlen){
+		//Constructor: sets arrival, service, and logging rates 
+		calendar = new MM1Event(lamb, sr, lr);
+		birthEvent = calendar.nextBirth(0);
+		deathEvent = calendar.nextDeath(birthEvent.time);
+		logEvent = calendar.nextLog(0);
+		simulationLength = simlen;
+	}
+	
+	public Event nextEvent(double currentTime){
+		//Returns the next event 
+		
+		return Events.removeFirst();
+	}
+}

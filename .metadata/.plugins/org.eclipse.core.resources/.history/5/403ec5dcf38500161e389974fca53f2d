@@ -1,0 +1,8 @@
+package hw3;
+
+public class Request {
+	double arrival_time;
+	double departure_time;
+	double service_start;
+	double service_end;
+}

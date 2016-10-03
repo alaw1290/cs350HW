@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="hw3.Request"/>
+<fullyQualifiedTypeName name="hw3.MM1Event"/>
+<fullyQualifiedTypeName name="hw3.Event"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,11 @@
+package hw3;
+
+public class Event {
+	public int type;
+	public double time;
+	
+	public Event(int Type, double Time){
+		type = Type;
+		time = Time;
+	}
+}

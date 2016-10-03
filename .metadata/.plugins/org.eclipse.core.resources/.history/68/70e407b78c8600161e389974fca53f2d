@@ -1,0 +1,20 @@
+package hw3;
+
+public class Logger {
+	private double totalTW;
+	private double totalTS;
+	private double totalRequests;
+	private int totalW;
+	private int totalQ;
+	private int totalP;
+	private int totalLogs;
+	
+	public Logger(){
+		
+	}
+	
+	public void writeLog(int w, int q, int p){
+		totalLogs++;
+		
+	}
+}
