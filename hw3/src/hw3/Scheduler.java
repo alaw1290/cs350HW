@@ -4,13 +4,13 @@ import java.util.*;
 
 
 public class Scheduler {
-	private LinkedList<Event> Schedule;
+	private PriorityQueue<Event> Schedule;
 	private MM1Event emitter;
 	
 	public Scheduler(double lamb, double sr, double lr, double simulationLength){
 		//Constructor: sets arrival, service, and logging rates 
 		emitter = new MM1Event(lamb, sr, lr);
-		Schedule = new LinkedList<Event>();
+		Schedule = new PriorityQueue<Event>();
 		
 		//populate Events list till simulation time is reached
 		double eventTime = 0;
@@ -29,19 +29,16 @@ public class Scheduler {
 			eventTime = log.time;
 		}
 		
-		
-		Collections.sort(Schedule);
 	}
 	
 	public void insertDeathEvent(double serviceStart){
 		//inserts a death event for a request in the schedule 
 		Event death = emitter.nextDeath(serviceStart);
 		Schedule.add(death);
-		Collections.sort(Schedule);
 	}
 	
-	public Event nextEvent(double currentTime){
+	public Event nextEvent(){
 		//Returns the next event 
-		return Schedule.removeFirst();
+		return Schedule.remove();
 	}
 }

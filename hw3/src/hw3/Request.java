@@ -34,4 +34,8 @@ public class Request {
 		//Returns the Tq of the request
 		return departureTime - arrivalTime;
 	}
+	
+	public String toString() {
+		return "[" + Double.toString(this.queueLog()) + "," + Double.toString(this.waitingLog()) + "," + Double.toString(this.serviceLog()) + ","+  (this.queueLog() == this.waitingLog() + this.serviceLog())+ "]";
+	}
 }

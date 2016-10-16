@@ -19,19 +19,19 @@ public class MM1Simulator {
 	
 	public double[] runMM1(){
 		currentTime = 0;
-		Scheduler scheduler = new Scheduler(lambda,serviceRate, lambda*2, simulationLength);
+		Scheduler scheduler = new Scheduler(lambda, serviceRate, lambda*2, simulationLength);
 		Logger logger = new Logger();
 		Request server = null;
 		LinkedList<Request> queue = new LinkedList<Request>();
 		
 		while(currentTime < simulationLength){
-			Event currentEvent = scheduler.nextEvent(currentTime);
+			Event currentEvent = scheduler.nextEvent();
 			currentTime = currentEvent.time;
 			
 			
 			if(currentEvent.type == 0){
 				// Birth Event 
-				
+
 				//generate arrival of new request, set arrival time
 				Request request = new Request(currentTime);
 				if(server == null){
@@ -52,11 +52,11 @@ public class MM1Simulator {
 				//request finished, set departure time
 				server.finished(currentTime);
 				
-				if(currentTime > (simulationLength/2)){
+				if(currentTime >= (simulationLength/2)){
 					logger.logRequest(server.waitingLog(), server.queueLog());
 				}
 				
-				if(queue.peek() != null){
+				if(!(queue.isEmpty())){
 					//process next request in the queue, set start service time and insert death event
 					server = queue.removeFirst();
 					server.serviceStart(currentTime);
@@ -69,9 +69,8 @@ public class MM1Simulator {
 			}
 
 			else{
-				// Log Event (only starts after current time is past halfway point)
-				if(currentTime > (simulationLength/2)){
-
+				// Log Event 
+				if(currentTime >= (simulationLength/2)){
 					if(server == null){
 						logger.writeLog(0, 0, 0);
 					}
@@ -79,19 +78,18 @@ public class MM1Simulator {
 						logger.writeLog(queue.size(), queue.size() + 1, 1);
 					}
 				}
-				
 			}			
 		}
 		
 	//completed simulation, return results
-		
+
 	return logger.logResult();
 	}
 	
 	public static void main(String args[]){
 		
-		System.out.println("Beginning MM1 Simulation: (5,0.15,1000) ...");
-		MM1Simulator Sim = new MM1Simulator(5, (1/.15), 1000);
+		System.out.println("Beginning MM1 Simulation: (5,0.15,10000) ...");
+		MM1Simulator Sim = new MM1Simulator(5, (1/0.15), 100000);
 		double[] results = Sim.runMM1();
 		
 		//{tw,tq,w,q,p}
@@ -103,8 +101,8 @@ public class MM1Simulator {
 				+ "Utilization (p): %f\n",
 				results[0],results[1],results[2],results[3],results[4]); 
 		
-		System.out.println("\nBeginning MM1 Simulation: (6,0.15,1000) ...");
-		Sim = new MM1Simulator(6, (1/.15), 1000);
+		System.out.println("\nBeginning MM1 Simulation: (6,0.15,10000) ...");
+		Sim = new MM1Simulator(6, (1/.15), 100000);
 		results = Sim.runMM1();
 		
 		//{tw,tq,w,q,p}
@@ -116,8 +114,8 @@ public class MM1Simulator {
 				+ "Utilization (p): %f\n",
 				results[0],results[1],results[2],results[3],results[4]);  
 		
-		System.out.println("\nBeginning MM1 Simulation: (6,0.2,1000) ...");
-		Sim = new MM1Simulator(6, (1/.2), 1000);
+		System.out.println("\nBeginning MM1 Simulation: (6,0.2,10000) ...");
+		Sim = new MM1Simulator(6, (1/.2), 100000);
 		results = Sim.runMM1();
 		
 		//{tw,tq,w,q,p}

@@ -1,9 +1,0 @@
-package hw3;
-
-public class Request {
-	double arrival_time = 0;
-	double departure_time = 0;
-	double service_start = 0;
-	double service_end = 0;
-	
-}

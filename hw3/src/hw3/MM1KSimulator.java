@@ -1,38 +1,37 @@
 package hw3;
 
-import java.util.LinkedList;
+import java.util.*;
 
 public class MM1KSimulator {
 	public double lambda;
 	public double serviceRate;
-	public double queueMaxSize;
+	public int queueMaxSize;
 	public double simulationLength;
 	public double currentTime;
 	
-	
-	public MM1KSimulator(double lamb, double sr, double k, double simlen){
+	public MM1KSimulator(double lamb, double sr, int k, double simlen){
 		lambda = lamb;
 		serviceRate = sr;
-		queueMaxSize = k;
+		//K includes the size of the server (1) so queue is size k-1
+		queueMaxSize = k-1;
 		simulationLength = simlen * 2;
 		
 	}
 	
 	public double[] runMM1K(){
 		currentTime = 0;
-		Scheduler scheduler = new Scheduler(lambda,serviceRate, lambda*2, simulationLength);
+		Scheduler scheduler = new Scheduler(lambda,serviceRate,lambda*2,simulationLength);
 		Logger logger = new Logger();
 		Request server = null;
 		LinkedList<Request> queue = new LinkedList<Request>();
-		
 		while(currentTime < simulationLength){
-			Event currentEvent = scheduler.nextEvent(currentTime);
+			Event currentEvent = scheduler.nextEvent();
 			currentTime = currentEvent.time;
 			
 			
 			if(currentEvent.type == 0){
 				// Birth Event 
-				
+
 				//generate arrival of new request, set arrival time
 				Request request = new Request(currentTime);
 				if(server == null){
@@ -44,12 +43,12 @@ public class MM1KSimulator {
 				else{
 					//if queue is smaller than max size
 					if(queue.size() < queueMaxSize){
-						//send request to queue 
-						queue.addLast(request);
+						//send request to queue
+						queue.add(request);
 					}
 					else{
-						//drop request
-						if(currentTime > (simulationLength/2)){
+						if(currentTime >= (simulationLength/2)){
+							//drop request
 							logger.dropRequest();
 						}
 					}
@@ -62,13 +61,13 @@ public class MM1KSimulator {
 				//request finished, set departure time
 				server.finished(currentTime);
 				
-				if(currentTime > (simulationLength/2)){
+				if(currentTime >= (simulationLength/2)){
 					logger.logRequest(server.waitingLog(), server.queueLog());
 				}
 				
-				if(queue.peek() != null){
+				if(!queue.isEmpty()){
 					//process next request in the queue, set start service time and insert death event
-					server = queue.removeFirst();
+					server = queue.remove();
 					server.serviceStart(currentTime);
 					scheduler.insertDeathEvent(currentTime);
 				}
@@ -79,9 +78,8 @@ public class MM1KSimulator {
 			}
 
 			else{
-				// Log Event (only starts after current time is past halfway point)
-				if(currentTime > (simulationLength/2)){
-
+				// Log Event
+				if(currentTime >= (simulationLength/2)){
 					if(server == null){
 						logger.writeLog(0, 0, 0);
 					}
@@ -89,24 +87,23 @@ public class MM1KSimulator {
 						logger.writeLog(queue.size(), queue.size() + 1, 1);
 					}
 				}
-				
 			}			
 		}
 		
 	//completed simulation, return results
-		
+
 	return logger.logResult();
 	}
 	
 	public static void main(String args[]){
 		
-		
 		int[] queuesizes = {2,4,10};
+		int n = 100000;
 		
 		for(int i=0;i < queuesizes.length;i++){
 			int k = queuesizes[i];
-			System.out.println("Beginning MM1K Simulation: (5,0.15," + Integer.toString(k) +  ",1000) ...");
-			MM1KSimulator Sim = new MM1KSimulator(5, (1/.15), k, 1000);
+			System.out.println("Beginning MM1K Simulation: (5,0.15," + Integer.toString(k) +  "," + Integer.toString(n) +  ") ...");
+			MM1KSimulator Sim = new MM1KSimulator(5, (1/.15), k, n);
 			double[] results = Sim.runMM1K();
 			
 			//{tw,tq,w,q,p,k}
@@ -119,8 +116,8 @@ public class MM1KSimulator {
 					+ "Rejection Probability: %f\n",
 					results[0],results[1],results[2],results[3],results[4],results[5]); 
 			
-			System.out.println("Beginning MM1K Simulation: (6,0.15," + Integer.toString(k) +  ",1000) ...");
-			Sim = new MM1KSimulator(6, (1/.15), k, 1000);
+			System.out.println("\nBeginning MM1K Simulation: (5,0.15," + Integer.toString(k) +  "," + Integer.toString(n) +  ") ...");
+			Sim = new MM1KSimulator(6, (1/.15), k, n);
 			results = Sim.runMM1K();
 			
 			//{tw,tq,w,q,p,k}
@@ -133,8 +130,8 @@ public class MM1KSimulator {
 					+ "Rejection Probability: %f\n",
 					results[0],results[1],results[2],results[3],results[4],results[5]); 
 			
-			System.out.println("Beginning MM1K Simulation: (6,0.2," + Integer.toString(k) +  ",1000) ...");
-			Sim = new MM1KSimulator(6, (1/.2), k, 1000);
+			System.out.println("\nBeginning MM1K Simulation: (6,0.2," + Integer.toString(k) +  "," + Integer.toString(n) +  ") ...");
+			Sim = new MM1KSimulator(6, (1/.2), k, n);
 			results = Sim.runMM1K();
 			
 			//{tw,tq,w,q,p,k}
@@ -147,7 +144,6 @@ public class MM1KSimulator {
 					+ "Rejection Probability: %f\n",
 					results[0],results[1],results[2],results[3],results[4],results[5]);
 			
-			System.out.println("\n");
 		}
 	}
 }

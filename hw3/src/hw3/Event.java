@@ -9,12 +9,10 @@ public class Event implements Comparable<Event>{
 		time = Time;
 	}
 	
-	@Override
 	public int compareTo(Event e) {
-		double comparedTime = e.time;
-		if (this.time > comparedTime) {
+		if (this.time > e.time) {
 			return 1;
-		} else if (this.time == comparedTime) {
+		} else if (this.time == e.time) {
 			return 0;
 		} else {
 			return -1;

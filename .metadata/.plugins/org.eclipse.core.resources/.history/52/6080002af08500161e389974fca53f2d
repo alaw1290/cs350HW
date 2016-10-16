@@ -1,6 +1,0 @@
-package hw3;
-
-public class Event {
-	int type;
-	double time;
-}

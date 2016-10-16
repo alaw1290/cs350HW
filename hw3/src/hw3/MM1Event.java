@@ -18,26 +18,26 @@ public class MM1Event {
 	
 	private double expDist(double lambda){
 		// Input lambda (interarrival time) to return exponentially distributed values
-		double result = (-1*Math.log(1-rand.nextDouble())) / lambda;
+		double result = -(Math.log(1-rand.nextDouble())) / lambda;
 		return result;
 	}
 	
 	public Event nextBirth(double currentTime){
 		// Returns time of next birth event
-		Event nextEvent = new Event(0,currentTime + expDist(lambda));
-		return nextEvent;
+		Event a = new Event(0,currentTime + expDist(lambda));
+		return a;
 	}
 	
 	public Event nextDeath(double currentTime){
 		// Returns time of next death event
-		Event nextEvent = new Event(1,currentTime + expDist(serviceRate));
-		return nextEvent;
+		Event b = new Event(1,currentTime + expDist(serviceRate));
+		return b;
 	}
 
 	public Event nextLog(double currentTime){
 		// Returns time of next log event
-		Event nextEvent = new Event(2,currentTime + expDist(loggingRate));
-		return nextEvent;
+		Event c = new Event(2,currentTime + expDist(loggingRate));
+		return c;
 	}
 	
 }

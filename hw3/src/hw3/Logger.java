@@ -5,6 +5,7 @@ public class Logger {
 	private double totalTQ;
 	private double totalDropped;
 	private double totalRequests;
+	private double totalSuccessfulRequests;
 	private double totalW;
 	private double totalQ;
 	private double totalP;
@@ -30,26 +31,27 @@ public class Logger {
 	
 	public void logRequest(double tw, double tq){
 		totalRequests+= 1;
+		totalSuccessfulRequests += 1;
 		totalTW += tw;
 		totalTQ += tq;
 	}
 	
 	public void dropRequest(){
-		totalRequests += 1;
+		totalRequests+= 1;
 		totalDropped += 1;
 	}
 	
 	public double[] logResult(){
 		
-		double tw = totalTW / totalRequests;
-		double tq = totalTQ / totalRequests;
+		double tw = totalTW / totalSuccessfulRequests;
+		double tq = totalTQ / totalSuccessfulRequests;
 		double w = totalW / totalLogs;
 		double q = totalQ / totalLogs;
 		double p = totalP / totalLogs;
 		double d = totalDropped / totalRequests;
 		
 		double[] result = {tw,tq,w,q,p,d};
-		
+
 		return result;
 	}
 }
