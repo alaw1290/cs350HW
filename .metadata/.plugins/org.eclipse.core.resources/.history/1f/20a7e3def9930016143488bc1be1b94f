@@ -1,0 +1,31 @@
+package hw4;
+
+public class Controller {
+	public double SystemLambda;
+	public double CPUsr;
+	public double Netsr;
+	public double Disksr;
+	public double simulationLength;
+	
+	public Controller(double lamb, double cTS, double nTS, double dTS, double simlen){
+		//Initializes the parameters for the system components
+		SystemLambda = lamb;
+		CPUsr = 1.0/cTS;
+		Netsr = 1.0/nTS;
+		Disksr = 1.0/dTS;
+		simulationLength = simlen;
+	}
+	
+	public void run(){
+		//runs simulation of network queues
+		
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,19 @@
+package hw4;
+
+public class Controller {
+	public double SystemLambda;
+	public double CPUsr;
+	public double Netsr;
+	public double Disksr;
+	
+	public Controller(double lamb, double cTS, double nTS, double diskTS){
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

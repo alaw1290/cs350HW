@@ -1,0 +1,38 @@
+package hw4;
+
+import java.util.*;
+
+public class MM1 {
+	public LinkedList<Request> queue;
+	public Request server;
+	
+	public MM1(){
+		//initalizes a new MM1 Server
+		queue = new LinkedList<Request>();
+		server = null;
+	}
+	
+	public void birth(Request r){
+		//Birth event: add request to queue or server
+		if(server == null){
+			queue.add(r);
+		}
+		else{
+			server = r;
+		}
+	}
+	public Request death(){
+		//Death event: remove event from server, serve next request
+		
+		Request dead = server;
+		
+		if(queue.isEmpty()){
+			server = null;
+		}
+		else{
+			server = queue.remove();
+		}
+		
+		return dead;
+	}
+}
