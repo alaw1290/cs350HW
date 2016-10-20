@@ -116,7 +116,7 @@ public class MM1KSimulator {
 					+ "Rejection Probability: %f\n",
 					results[0],results[1],results[2],results[3],results[4],results[5]); 
 			
-			System.out.println("\nBeginning MM1K Simulation: (5,0.15," + Integer.toString(k) +  "," + Integer.toString(n) +  ") ...");
+			System.out.println("\nBeginning MM1K Simulation: (6,0.15," + Integer.toString(k) +  "," + Integer.toString(n) +  ") ...");
 			Sim = new MM1KSimulator(6, (1/.15), k, n);
 			results = Sim.runMM1K();
 			
@@ -141,7 +141,7 @@ public class MM1KSimulator {
 					+ "Average # in Queue (w): %f\n "
 					+ "Average # in System (q): %f\n "
 					+ "Utilization (p): %f\n "
-					+ "Rejection Probability: %f\n",
+					+ "Rejection Probability: %f\n\n",
 					results[0],results[1],results[2],results[3],results[4],results[5]);
 			
 		}

@@ -88,7 +88,7 @@ public class MM1Simulator {
 	
 	public static void main(String args[]){
 		
-		System.out.println("Beginning MM1 Simulation: (5,0.15,10000) ...");
+		System.out.println("Beginning MM1 Simulation: (5,0.15,100000) ...");
 		MM1Simulator Sim = new MM1Simulator(5, (1/0.15), 100000);
 		double[] results = Sim.runMM1();
 		
@@ -101,7 +101,7 @@ public class MM1Simulator {
 				+ "Utilization (p): %f\n",
 				results[0],results[1],results[2],results[3],results[4]); 
 		
-		System.out.println("\nBeginning MM1 Simulation: (6,0.15,10000) ...");
+		System.out.println("\nBeginning MM1 Simulation: (6,0.15,100000) ...");
 		Sim = new MM1Simulator(6, (1/.15), 100000);
 		results = Sim.runMM1();
 		
@@ -114,7 +114,7 @@ public class MM1Simulator {
 				+ "Utilization (p): %f\n",
 				results[0],results[1],results[2],results[3],results[4]);  
 		
-		System.out.println("\nBeginning MM1 Simulation: (6,0.2,10000) ...");
+		System.out.println("\nBeginning MM1 Simulation: (6,0.2,100000) ...");
 		Sim = new MM1Simulator(6, (1/.2), 100000);
 		results = Sim.runMM1();
 		

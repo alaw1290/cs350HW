@@ -26,6 +26,24 @@ public class MM1Event {
 		return result;
 	}
 	
+	public static double Zrand(double mean, double stdev){
+		mean = mean / 30;
+		double var = (stdev * stdev) / 30;
+		double bound = var * 12;
+		bound = Math.pow(bound, 0.5);
+		double lowerBound = mean - (bound / 2);
+		double upperBound = mean + (bound / 2);
+		double[] uniformList = new double[200];
+		for(int i = 0; i < 200; i++){
+			uniformList[i] = lowerBound + (Math.random() * (upperBound - lowerBound));
+		}
+		double sum = 0;
+		for(int j = 0; j < 30; j++){
+			sum  = sum + uniformList[new Random().nextInt(uniformList.length)];
+		}
+		return sum;
+	}
+	
 	public Event nextSystemLog(double currentTime){
 		// Returns time of next system log event
 		Event c = new Event(0,currentTime + expDist(loggingRate));
@@ -39,27 +57,60 @@ public class MM1Event {
 	}
 	
 	
-	public Event nextCPU1Death(double currentTime){
+	public Event nextCPU1Death(double currentTime, int flag){
 		// Returns time of next CPU A death event (CPU -> System/Net/Disk)
-		Event b = new Event(21,currentTime + expDist(CPUserviceRate));
-		return b;
+		if(flag == 0){
+			Event b = new Event(21,currentTime + expDist(CPUserviceRate));
+			return b;
+		}
+		else{
+			//CPU service time is uniformly distributed between 1 and 39 msec
+			Event b = new Event(21,currentTime + (0.001 + Math.random()*0.038));
+			return b;
+		}
 	}
 	
-	public Event nextCPU2Death(double currentTime){
+	public Event nextCPU2Death(double currentTime, int flag){
 		// Returns time of next CPU B death event (CPU -> System/Net/Disk)
-		Event b = new Event(22,currentTime + expDist(CPUserviceRate));
-		return b;
+		if(flag == 0){
+			Event b = new Event(22,currentTime + expDist(CPUserviceRate));
+			return b;
+		}
+		else{
+			//CPU service time is uniformly distributed between 1 and 39 msec
+			Event b = new Event(22,currentTime + (0.001 + Math.random()*0.038));
+			return b;
+		}
 	}
 
-	public Event nextNetDeath(double currentTime){
+	public Event nextNetDeath(double currentTime, int flag){
 		// Returns time of next CPU death event (Net -> CPU)
-		Event b = new Event(3,currentTime + expDist(NetserviceRate));
-		return b;
+		if(flag == 0){
+			Event b = new Event(3,currentTime + expDist(NetserviceRate));
+			return b;
+		}
+		else{
+			//Disk I/O service time is normally distributed with mean of 100 msec and standard deviation of 30 msec (but never negative)
+			
+			double normval = Zrand(0.1,0.03);
+			while(normval < 0){
+				normval = Zrand(0.1,0.03);
+			}
+			Event b = new Event(3,currentTime + normval);
+			return b;
+		}
 	}
 
-	public Event nextDiskDeath(double currentTime){
+	public Event nextDiskDeath(double currentTime, int flag){
 		// Returns time of next CPU death event (Disk -> Net/CPU)
-		Event b = new Event(4,currentTime + expDist(DiskserviceRate));
-		return b;
+		if(flag == 0){
+			Event b = new Event(4,currentTime + expDist(DiskserviceRate));
+			return b;
+		}
+		else{
+			//Network service time is constant and equal to 25 msec
+			Event b = new Event(4,currentTime + 0.025);
+			return b;
+		}
 	}
 }
