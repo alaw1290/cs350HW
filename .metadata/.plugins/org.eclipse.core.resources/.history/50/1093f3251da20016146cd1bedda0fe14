@@ -1,0 +1,19 @@
+package hw6;
+
+public class WhileTimer {
+	
+	public static void main(String[] args) {
+		
+		int c = 0;
+		long start = System.currentTimeMillis();
+		while(c < 100){
+			c++;
+		}
+		long end = System.currentTimeMillis();
+		System.out.println(c);
+		double time = end-start;
+		System.out.printf("Empty While loop finished in %f\n",  time);
+
+	}
+
+}

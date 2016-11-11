@@ -1,0 +1,15 @@
+package hw6;
+
+public class WhileThread extends Thread{
+	public boolean foo;
+	
+	public WhileThread(){
+		foo = false;
+	}
+	
+	public void run(){
+		long start = System.currentTimeMillis();
+		while(System.currentTimeMillis() < (start + 1000)){}
+		foo = true;
+	}
+}

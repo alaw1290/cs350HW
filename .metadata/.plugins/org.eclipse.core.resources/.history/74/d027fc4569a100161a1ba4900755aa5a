@@ -1,0 +1,37 @@
+package hw6;
+import java.io.*;
+
+public class MyProcess extends Thread{
+	private int id;
+	
+	public MyProcess (int i){
+		id = i;
+	}
+	
+	public void run(){
+		for(int iter = 1; iter < 6; iter++){
+			System.out.printf("Thread %d starting iteration %d\n",id,iter);
+			System.out.println("We hold these truths to be self-evident, that all men are created equal,");
+			System.out.println("that they are endowed by their Creator with certain unalienable Rights,");
+			System.out.println("that among these are Life, Liberty and the pursuit of Happiness.");
+			System.out.printf("Thread %d done iteration %d\n",id,iter);
+			try{
+				Thread.sleep(4000);
+			}
+			catch(InterruptedException e){
+				System.out.println("Thread " + Integer.toString(id) + " interrupted");
+			}
+		}
+	}
+	
+	public static void main(String[] args) throws Exception{
+		// TODO Auto-generated method stub
+		final int N = 2;
+		MyProcess[] p = new MyProcess[N];
+		for (int i = 0; i < N; i++){
+			p[i] = new MyProcess(i);
+			p[i].start();
+		}
+	}
+	
+}

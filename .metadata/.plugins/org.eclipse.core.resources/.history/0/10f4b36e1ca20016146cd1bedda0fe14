@@ -1,0 +1,17 @@
+package hw6;
+
+public class WhileTimer {
+	
+	public static void main(String[] args) {
+		
+		WhileThread t = new WhileThread();
+		long start = System.currentTimeMillis();
+		t.start();
+		while(t.foo){}
+		long end = System.currentTimeMillis();
+		
+		System.out.printf("Empty While loop finished in %f\n",end-start);
+
+	}
+
+}

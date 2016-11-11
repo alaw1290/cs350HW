@@ -1,0 +1,18 @@
+package hw6;
+
+public class WhileTimer {
+	
+	public static void main(String[] args) {
+		
+		int c = 0;
+		long start = System.currentTimeMillis();
+		while(c < 100){
+			c++;
+			System.out.println(c);
+		}
+		long end = System.currentTimeMillis();
+		System.out.println(time);
+
+	}
+
+}

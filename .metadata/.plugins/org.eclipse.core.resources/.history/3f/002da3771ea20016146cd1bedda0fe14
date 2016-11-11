@@ -1,0 +1,81 @@
+package hw6;
+
+public class MyProcessPeterson extends Thread{
+	private int id;
+	static volatile boolean[] flag = new boolean[2];
+	static volatile int turn;
+	static volatile long fairness;
+	private int trace;
+	
+	public MyProcessPeterson (int i, long f, int t){
+		id = i;
+		fairness = f;
+		turn = (int) f;
+		trace = t;
+	}
+	
+	public void run(){
+
+		int i = id;
+		int j = Math.abs(id-1);
+		
+		for(int iter = 1; iter < 6; iter++){
+			try{
+
+				//Peterson entry protocol
+				
+				turn = j;
+				//fairness modifier: make thread 0 wait longer
+				Thread.sleep(200*fairness*j);
+				
+				flag[i] = true;
+				//fairness modifier: make thread 0 wait longer
+				Thread.sleep(200*fairness*j);
+				
+				if(fairness == 1){
+					System.out.printf("%d start entry protocol\n",id);
+				}
+				
+				int c = 0;
+				while(flag[j] && turn == j){c++;}
+				
+				if(trace == 1){
+					System.out.printf("%d busy waiting for %d loops\n",c);
+				}
+				
+				//CS begins
+				System.out.printf("%d - Starting iteration %d\n",id,iter);
+				System.out.printf("%d - We hold these truths to be self-evident, that all men are created equal,\n",id);
+				System.out.printf("%d - that they are endowed by their Creator with certain unalienable Rights,\n",id);
+				System.out.printf("%d - that among these are Life, Liberty and the pursuit of Happiness.\n",id);
+				System.out.printf("%d - Done iteration %d\n",id,iter);
+				//CS ends
+				
+				//Peterson exit protocol
+				flag[i] = false;
+			    Thread.sleep( (long)(20.0*Math.random() ));
+				
+			}
+			catch(InterruptedException e){
+				System.out.println("Thread " + Integer.toString(id) + " interrupted");
+			}
+		}
+	}
+	
+	public static void main(String[] args) throws Exception{
+		final int N = 2;
+		MyProcessPeterson[] p = new MyProcessPeterson[N];
+		
+		//fairness: fair iteration set to 0, unfair iteration set to 1
+		long fairness = 0;
+		
+		//tracing: don't count busy waiting set to 0, count busy waiting set to 1
+		long trace = 0;
+		
+		for (int i = 0; i < N; i++){
+			p[i] = new MyProcessPeterson(i, fairness, trace);
+			p[i].start();
+		}
+		
+	}
+}

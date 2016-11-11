@@ -1,0 +1,15 @@
+package hw6;
+import java.util.*;
+
+public class MyProcess extends Thread {
+	
+	private int i;
+	
+	public myProcess()
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

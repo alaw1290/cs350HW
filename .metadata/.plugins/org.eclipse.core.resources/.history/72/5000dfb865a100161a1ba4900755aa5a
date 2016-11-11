@@ -1,0 +1,34 @@
+package hw6;
+import java.util.concurrent.Semaphore;
+
+public class Problem3 {
+
+    class MyProcess extends Thread
+    {
+
+    private int id;
+
+    public MyProcess(int i)
+          {
+
+            id = i;
+
+    }
+     
+
+          public void run()
+
+    {
+
+          /* CODE OF PROCESS GOES HERE */
+
+          }
+    }
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

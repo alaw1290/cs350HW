@@ -1,0 +1,15 @@
+package hw6;
+import java.io.*;
+
+public class Problem3 extends Thread {
+	private int id;
+	
+	public Problem3(int i){
+		id = i;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
